@@ -9,7 +9,7 @@ Each tool has its own API, key and limits. All APIs are in **free beta**.
 
 | Tool | Question it answers | Docs |
 |------|---------------------|------|
-| Derivatives Intelligence | What are crypto derivatives traders positioned for right now? | coming soon |
+| Derivatives Intelligence | What are crypto derivatives traders positioned for right now? | [docs](tools/derivatives-intelligence/README.md) |
 
 More tools will be added here one by one.
 
