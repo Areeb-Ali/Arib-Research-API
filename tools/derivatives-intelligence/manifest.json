@@ -1,0 +1,162 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "Derivatives Intelligence",
+    "slug": "derivatives-intelligence",
+    "question": "What are crypto derivatives traders positioned for right now?",
+    "methodology_version": "composite-1.2"
+  },
+  "docs_page": "/api",
+  "public_api": {
+    "base_path": "/v1",
+    "auth": "existing_keys",
+    "key_header": "X-API-Key",
+    "key_issuance": "accounts",
+    "limits": {
+      "per_minute": 2,
+      "per_day": 50,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 1,
+      "key_default_expiry_days": null
+    },
+    "cors_origins_env": "CORS_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/v1/status",
+        "summary": "Service status and your plan",
+        "datasets": []
+      },
+      {
+        "method": "GET",
+        "path": "/v1/markets",
+        "summary": "Headline numbers for BTC, ETH and SOL",
+        "datasets": [
+          "market_summary"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/assets/{asset}",
+        "summary": "Full current view of one asset",
+        "datasets": [
+          "asset_view"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/assets/{asset}/regime",
+        "summary": "Current regime and zone",
+        "datasets": [
+          "regime"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/assets/{asset}/history",
+        "summary": "Score and price history inside your plan's window",
+        "datasets": [
+          "asset_history"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/assets/{asset}/liquidations",
+        "summary": "Liquidation totals",
+        "datasets": [
+          "liquidations"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/assets/{asset}/liquidation-levels",
+        "summary": "Estimated liquidation levels (model)",
+        "datasets": [
+          "liquidation_levels"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/assets/{asset}/options/expiries",
+        "summary": "Options expiry calendar and max pain",
+        "datasets": [
+          "options_expiries"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/regimes",
+        "summary": "Recent regime changes, up to 500",
+        "datasets": [
+          "regime"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "market_summary",
+        "description": "Composite score, regime, funding, OI and options headline per asset",
+        "unit": "mixed",
+        "frequency": "5m",
+        "redistribution": "own_computed",
+        "attribution": "Derivatives Intelligence by AriB Research, derivatives.aribresearch.com",
+        "license_note": "Personal and internal use. Credit the source when you show the data. Reselling or bulk redistribution needs written permission."
+      },
+      {
+        "id": "asset_view",
+        "description": "Every number on an asset page",
+        "unit": "mixed",
+        "frequency": "5m",
+        "redistribution": "own_computed",
+        "attribution": "Derivatives Intelligence by AriB Research, derivatives.aribresearch.com",
+        "license_note": "Personal and internal use. Credit the source when you show the data. Reselling or bulk redistribution needs written permission."
+      },
+      {
+        "id": "regime",
+        "description": "Regime state and zone from 24h price and OI change",
+        "unit": "label",
+        "frequency": "5m",
+        "redistribution": "own_computed",
+        "attribution": "Derivatives Intelligence by AriB Research, derivatives.aribresearch.com",
+        "license_note": "Personal and internal use. Credit the source when you show the data. Reselling or bulk redistribution needs written permission."
+      },
+      {
+        "id": "asset_history",
+        "description": "Composite score and price points",
+        "unit": "mixed",
+        "frequency": "5m/1h",
+        "redistribution": "own_computed",
+        "attribution": "Derivatives Intelligence by AriB Research, derivatives.aribresearch.com",
+        "license_note": "Personal and internal use. Credit the source when you show the data. Reselling or bulk redistribution needs written permission."
+      },
+      {
+        "id": "liquidations",
+        "description": "Liquidation totals summed from Binance and Bybit public streams",
+        "unit": "USD",
+        "frequency": "1h",
+        "redistribution": "attribution_required",
+        "attribution": "Derivatives Intelligence by AriB Research, derivatives.aribresearch.com",
+        "license_note": "Personal and internal use. Credit the source when you show the data. Reselling or bulk redistribution needs written permission."
+      },
+      {
+        "id": "liquidation_levels",
+        "description": "Estimated liquidation levels, our model on public OI",
+        "unit": "USD",
+        "frequency": "5m",
+        "redistribution": "own_computed",
+        "attribution": "Derivatives Intelligence by AriB Research, derivatives.aribresearch.com",
+        "license_note": "Personal and internal use. Credit the source when you show the data. Reselling or bulk redistribution needs written permission."
+      },
+      {
+        "id": "options_expiries",
+        "description": "Expiry calendar and max pain from Deribit public data",
+        "unit": "USD",
+        "frequency": "5m",
+        "redistribution": "attribution_required",
+        "attribution": "Derivatives Intelligence by AriB Research, derivatives.aribresearch.com",
+        "license_note": "Personal and internal use. Credit the source when you show the data. Reselling or bulk redistribution needs written permission."
+      }
+    ]
+  }
+}

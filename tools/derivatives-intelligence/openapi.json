@@ -1,0 +1,293 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Derivatives Intelligence Data API",
+    "version": "v1",
+    "description": "Free beta. Research only, not financial advice."
+  },
+  "servers": [
+    {
+      "url": "https://api-derivatives.areebalikhan.com/v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "summary": "Service status and your plan",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    },
+    "/markets": {
+      "get": {
+        "summary": "Headline numbers for BTC, ETH and SOL",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    },
+    "/assets/{asset}": {
+      "get": {
+        "summary": "Full current view of one asset",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BTC",
+                "ETH",
+                "SOL"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    },
+    "/assets/{asset}/regime": {
+      "get": {
+        "summary": "Current regime and zone",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BTC",
+                "ETH",
+                "SOL"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    },
+    "/assets/{asset}/history": {
+      "get": {
+        "summary": "Score and price history inside your plan's window",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BTC",
+                "ETH",
+                "SOL"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    },
+    "/assets/{asset}/liquidations": {
+      "get": {
+        "summary": "Liquidation totals",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BTC",
+                "ETH",
+                "SOL"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    },
+    "/assets/{asset}/liquidation-levels": {
+      "get": {
+        "summary": "Estimated liquidation levels (model)",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BTC",
+                "ETH",
+                "SOL"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    },
+    "/assets/{asset}/options/expiries": {
+      "get": {
+        "summary": "Options expiry calendar and max pain",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BTC",
+                "ETH",
+                "SOL"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    },
+    "/regimes": {
+      "get": {
+        "summary": "Recent regime changes, up to 500",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "{ data, meta } with attribution, license and notice in meta"
+          },
+          "401": {
+            "description": "missing, wrong or revoked key"
+          },
+          "403": {
+            "description": "outside your plan"
+          },
+          "429": {
+            "description": "rate limit, quota or global limit, see Retry-After"
+          }
+        }
+      }
+    }
+  }
+}
