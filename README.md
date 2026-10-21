@@ -13,6 +13,7 @@ Each tool has its own API, key and limits. All APIs are in **free beta**.
 | Liquidity Intelligence | Is liquidity entering or leaving crypto, and is institutional capital entering or leaving through spot ETFs and corporate treasuries? | [docs](tools/liquidity-intelligence/README.md) |
 | Narrative Intelligence | What is crypto news covering, how is its tone moving, and how strong is the evidence? | [docs](tools/narrative-intelligence/README.md) |
 | Macro Intelligence | What macro regime are markets in, and what is driving it? | [docs](tools/macro-intelligence/README.md) |
+| Event Calendar | What scheduled events in the coming days and weeks could matter for crypto markets, and what just happened? | [docs](tools/event-calendar/README.md) |
 
 More tools will be added here one by one.
 
