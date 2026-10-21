@@ -1,0 +1,173 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Liquidity Intelligence free API",
+    "version": "1",
+    "description": "Research only, not financial advice. Personal and internal use. Attribution required: AriB Research Liquidity Intelligence. No redistribution as a data feed, no scraping, crawling or bulk download."
+  },
+  "servers": [
+    {
+      "url": "https://liquidity.aribresearch.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "paths": {
+    "/public-api/v1/meta": {
+      "get": {
+        "summary": "Limits, endpoints and datasets of this API",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Envelope: schema_version, as_of, source, status, attribution, license, notice, data"
+          },
+          "400": {
+            "description": "Bad parameter, or a key sent in the URL"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-Key"
+          },
+          "429": {
+            "description": "Limit reached. See Retry-After and X-RateLimit headers"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/liquidity/latest": {
+      "get": {
+        "summary": "Latest Liquidity Score, state, zone and inputs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Envelope: schema_version, as_of, source, status, attribution, license, notice, data"
+          },
+          "400": {
+            "description": "Bad parameter, or a key sent in the URL"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-Key"
+          },
+          "429": {
+            "description": "Limit reached. See Retry-After and X-RateLimit headers"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/liquidity/history": {
+      "get": {
+        "summary": "Daily Liquidity Score and state for recent days",
+        "parameters": [
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "description": "1 to 90 (default 30)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope: schema_version, as_of, source, status, attribution, license, notice, data"
+          },
+          "400": {
+            "description": "Bad parameter, or a key sent in the URL"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-Key"
+          },
+          "429": {
+            "description": "Limit reached. See Retry-After and X-RateLimit headers"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/institutional/latest": {
+      "get": {
+        "summary": "Institutional flow state, coverage and evidence",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Envelope: schema_version, as_of, source, status, attribution, license, notice, data"
+          },
+          "400": {
+            "description": "Bad parameter, or a key sent in the URL"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-Key"
+          },
+          "429": {
+            "description": "Limit reached. See Retry-After and X-RateLimit headers"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/institutional/etf-flows": {
+      "get": {
+        "summary": "Daily 7 and 30 day spot ETF net flow sums for recent days",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "query",
+            "required": false,
+            "description": "BTC (default) or ETH",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "description": "1 to 90 (default 30)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope: schema_version, as_of, source, status, attribution, license, notice, data"
+          },
+          "400": {
+            "description": "Bad parameter, or a key sent in the URL"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-Key"
+          },
+          "429": {
+            "description": "Limit reached. See Retry-After and X-RateLimit headers"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    }
+  }
+}

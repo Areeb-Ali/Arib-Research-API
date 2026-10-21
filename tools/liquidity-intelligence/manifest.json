@@ -1,0 +1,105 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "Liquidity Intelligence",
+    "slug": "liquidity",
+    "question": "Is liquidity entering or leaving crypto, and is institutional capital entering or leaving through spot ETFs and corporate treasuries?",
+    "methodology_version": "liquidity-v1 / inst-1.0"
+  },
+  "docs_page": "https://liquidity.aribresearch.com/developers",
+  "public_api": {
+    "base_path": "/public-api/v1",
+    "auth": "api_key_header",
+    "key_header": "X-API-Key",
+    "key_issuance": "Free key on request: use the Give Feedback button on the site and choose Other. Keys are issued by hand and expire after 365 days.",
+    "limits": {
+      "per_minute": 30,
+      "per_day": 1000,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 90,
+      "key_default_expiry_days": 365
+    },
+    "cors_origins_env": "PUBLIC_API_CORS_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/public-api/v1/meta",
+        "summary": "Limits, endpoints and datasets of this API",
+        "datasets": []
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/liquidity/latest",
+        "summary": "Latest Liquidity Score, state, zone and inputs",
+        "datasets": [
+          "liquidity_score",
+          "liquidity_inputs"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/liquidity/history",
+        "summary": "Daily Liquidity Score and state for recent days",
+        "datasets": [
+          "liquidity_score"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/institutional/latest",
+        "summary": "Institutional flow state, coverage and evidence",
+        "datasets": [
+          "institutional_state",
+          "etf_flow_sums"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/institutional/etf-flows",
+        "summary": "Daily 7 and 30 day spot ETF net flow sums for recent days",
+        "datasets": [
+          "etf_flow_sums"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "liquidity_score",
+        "description": "Liquidity Score (0-100), state (Expanding, Stable, Draining) and zone",
+        "unit": "score 0-100",
+        "frequency": "daily",
+        "redistribution": "derived",
+        "attribution": "AriB Research Liquidity Intelligence",
+        "license_note": "Personal and internal use. Attribution required: AriB Research Liquidity Intelligence. No redistribution as a data feed, no scraping, crawling or bulk download."
+      },
+      {
+        "id": "liquidity_inputs",
+        "description": "Current value, reading and data date of each Liquidity Score input",
+        "unit": "mixed (USD, %, transfers/day)",
+        "frequency": "daily",
+        "redistribution": "derived",
+        "attribution": "AriB Research Liquidity Intelligence",
+        "license_note": "Personal and internal use. Attribution required: AriB Research Liquidity Intelligence. No redistribution as a data feed, no scraping, crawling or bulk download."
+      },
+      {
+        "id": "institutional_state",
+        "description": "Institutional flow state (Inflows, Outflows, Mixed), coverage and evidence per input",
+        "unit": "label",
+        "frequency": "daily",
+        "redistribution": "derived",
+        "attribution": "AriB Research Liquidity Intelligence",
+        "license_note": "Personal and internal use. Attribution required: AriB Research Liquidity Intelligence. No redistribution as a data feed, no scraping, crawling or bulk download."
+      },
+      {
+        "id": "etf_flow_sums",
+        "description": "US spot ETF 7 and 30 day net flow sums",
+        "unit": "USD",
+        "frequency": "daily",
+        "redistribution": "derived, CC BY 4.0 upstream",
+        "attribution": "AriB Research Liquidity Intelligence. Spot ETF flow figures derived from The Commoner Bitcoin ETF Tracker by TFTC (CC BY 4.0)",
+        "license_note": "Personal and internal use. Attribution required: AriB Research Liquidity Intelligence. No redistribution as a data feed, no scraping, crawling or bulk download."
+      }
+    ]
+  }
+}
