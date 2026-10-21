@@ -1,0 +1,145 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "Rotation Intelligence",
+    "slug": "rotation",
+    "question": "Where is capital moving inside crypto: BTC, ETH, large caps, mid caps, sectors, or into stablecoins, and how broad is the move?",
+    "methodology_version": "1.0"
+  },
+  "docs_page": "https://rotation.aribresearch.com/api-docs",
+  "public_api": {
+    "base_path": "/public-api/v1",
+    "auth": "API key in a request header",
+    "key_header": "X-API-Key",
+    "key_issuance": "Free; request one through the website feedback form. Shown once; valid for 365 days.",
+    "limits": {
+      "per_minute": 30,
+      "per_day": 1000,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 90,
+      "key_default_expiry_days": 365
+    },
+    "cors_origins_env": "PUBLIC_API_CORS_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/breadth",
+        "summary": "Breadth",
+        "datasets": [
+          "breadth"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/buckets",
+        "summary": "Buckets",
+        "datasets": [
+          "buckets"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/dominance",
+        "summary": "Dominance",
+        "datasets": [
+          "dominance"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/ethbtc",
+        "summary": "Ethbtc",
+        "datasets": [
+          "ethbtc"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/meta",
+        "summary": "Meta",
+        "datasets": []
+      },
+      {
+        "method": "GET",
+        "path": "/sectors",
+        "summary": "Sectors List",
+        "datasets": [
+          "sectors"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/sectors/{key}",
+        "summary": "Sector One",
+        "datasets": [
+          "sectors"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/state",
+        "summary": "State",
+        "datasets": [
+          "state"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "state",
+        "description": "Current state label, the rule that fired, coverage and every input",
+        "unit": "label / % / pp",
+        "frequency": "hourly",
+        "redistribution": "Not allowed in bulk; quote figures with attribution.",
+        "attribution": "AriB Research · Rotation Intelligence (rotation.aribresearch.com). Underlying market data: CoinPaprika, CoinGecko and Binance.",
+        "license_note": "Personal and internal use. No resale, no redistribution of bulk data, no scraping. Underlying market data remains subject to its providers' terms."
+      },
+      {
+        "id": "dominance",
+        "description": "BTC, ETH, stablecoin and other shares of total crypto market cap and their changes",
+        "unit": "% of total market cap; pp",
+        "frequency": "hourly; daily history",
+        "redistribution": "Not allowed in bulk; quote figures with attribution.",
+        "attribution": "AriB Research · Rotation Intelligence (rotation.aribresearch.com). Underlying market data: CoinPaprika, CoinGecko and Binance.",
+        "license_note": "Personal and internal use. No resale, no redistribution of bulk data, no scraping. Underlying market data remains subject to its providers' terms."
+      },
+      {
+        "id": "ethbtc",
+        "description": "ETH/BTC daily close, 7/30/90-day change, 20/50/200-day simple averages",
+        "unit": "ratio; %",
+        "frequency": "daily (UTC close)",
+        "redistribution": "Not allowed in bulk; quote figures with attribution.",
+        "attribution": "AriB Research · Rotation Intelligence (rotation.aribresearch.com). Underlying market data: CoinPaprika, CoinGecko and Binance.",
+        "license_note": "Personal and internal use. No resale, no redistribution of bulk data, no scraping. Underlying market data remains subject to its providers' terms."
+      },
+      {
+        "id": "buckets",
+        "description": "Equal- and cap-weight returns of market-cap buckets relative to BTC",
+        "unit": "%",
+        "frequency": "daily (UTC close)",
+        "redistribution": "Not allowed in bulk; quote figures with attribution.",
+        "attribution": "AriB Research · Rotation Intelligence (rotation.aribresearch.com). Underlying market data: CoinPaprika, CoinGecko and Binance.",
+        "license_note": "Personal and internal use. No resale, no redistribution of bulk data, no scraping. Underlying market data remains subject to its providers' terms."
+      },
+      {
+        "id": "sectors",
+        "description": "Equal-weight sector basket returns vs BTC and vs a top-100 market index, breadth",
+        "unit": "%",
+        "frequency": "daily (UTC close)",
+        "redistribution": "Not allowed in bulk; quote figures with attribution.",
+        "attribution": "AriB Research · Rotation Intelligence (rotation.aribresearch.com). Underlying market data: CoinPaprika, CoinGecko and Binance.",
+        "license_note": "Personal and internal use. No resale, no redistribution of bulk data, no scraping. Underlying market data remains subject to its providers' terms."
+      },
+      {
+        "id": "breadth",
+        "description": "Share of top 50/100 coins beating BTC over 30/90 days",
+        "unit": "% of coins",
+        "frequency": "daily (UTC close); daily history",
+        "redistribution": "Not allowed in bulk; quote figures with attribution.",
+        "attribution": "AriB Research · Rotation Intelligence (rotation.aribresearch.com). Underlying market data: CoinPaprika, CoinGecko and Binance.",
+        "license_note": "Personal and internal use. No resale, no redistribution of bulk data, no scraping. Underlying market data remains subject to its providers' terms."
+      }
+    ]
+  }
+}

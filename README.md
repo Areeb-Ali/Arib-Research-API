@@ -17,6 +17,7 @@ Each tool has its own API, key and limits. All APIs are in **free beta**.
 | On-Chain Intelligence | What is happening on-chain for Bitcoin and Ethereum, what changed, and how fresh is the data? | [docs](tools/onchain-intelligence/README.md) |
 | Opportunity Intelligence | Which crypto futures contracts are seeing unusual volatility expansion right now, and can they be traded cleanly? | [docs](tools/opportunity-intelligence/README.md) |
 | Risk Intelligence | Are there verified risk events or stress conditions in crypto right now, and how has that changed? | [docs](tools/risk-intelligence/README.md) |
+| Rotation Intelligence | Where is capital moving inside crypto: BTC, ETH, large caps, mid caps, sectors, or into stablecoins, and how broad is the move? | [docs](tools/rotation-intelligence/README.md) |
 
 More tools will be added here one by one.
 
