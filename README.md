@@ -14,6 +14,7 @@ Each tool has its own API, key and limits. All APIs are in **free beta**.
 | Narrative Intelligence | What is crypto news covering, how is its tone moving, and how strong is the evidence? | [docs](tools/narrative-intelligence/README.md) |
 | Macro Intelligence | What macro regime are markets in, and what is driving it? | [docs](tools/macro-intelligence/README.md) |
 | Event Calendar | What scheduled events in the coming days and weeks could matter for crypto markets, and what just happened? | [docs](tools/event-calendar/README.md) |
+| On-Chain Intelligence | What is happening on-chain for Bitcoin and Ethereum, what changed, and how fresh is the data? | [docs](tools/onchain-intelligence/README.md) |
 
 More tools will be added here one by one.
 

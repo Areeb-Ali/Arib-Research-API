@@ -1,0 +1,232 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AriB Research On-Chain Intelligence — Public API",
+    "version": "1",
+    "description": "Free keyed API with small limits. Research only, not financial advice. Personal and internal use. Attribution required. No redistribution, resale, scraping or bulk download."
+  },
+  "servers": [
+    {
+      "url": "https://onchain.aribresearch.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "paths": {
+    "/public-api/v1/": {
+      "get": {
+        "summary": "API index: endpoints, limits, attribution",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object with attribution, license, notice, as_of and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Rate limited (Retry-After, X-RateLimit-* headers)"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/score": {
+      "get": {
+        "summary": "Latest On-Chain Score, band, signal agreement and data coverage for one asset (?asset=btc|eth)",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "btc",
+                "eth"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object with attribution, license, notice, as_of and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Rate limited (Retry-After, X-RateLimit-* headers)"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/metrics": {
+      "get": {
+        "summary": "Latest value, observation date and status of each metric for one asset (?asset=btc|eth)",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "btc",
+                "eth"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object with attribution, license, notice, as_of and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Rate limited (Retry-After, X-RateLimit-* headers)"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/history": {
+      "get": {
+        "summary": "Daily score and band, last N days (?asset=btc|eth&days=1..90)",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "btc",
+                "eth"
+              ]
+            }
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 90,
+              "default": 30
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object with attribution, license, notice, as_of and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Rate limited (Retry-After, X-RateLimit-* headers)"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/forward-record": {
+      "get": {
+        "summary": "Scores as recorded at publication time (?asset=btc|eth)",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "btc",
+                "eth"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object with attribution, license, notice, as_of and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Rate limited (Retry-After, X-RateLimit-* headers)"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    },
+    "/public-api/v1/openapi.json": {
+      "get": {
+        "summary": "This API as OpenAPI 3 (no key needed)",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Object with attribution, license, notice, as_of and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Rate limited (Retry-After, X-RateLimit-* headers)"
+          },
+          "503": {
+            "description": "Data temporarily unavailable"
+          }
+        }
+      }
+    }
+  }
+}
