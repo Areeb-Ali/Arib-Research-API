@@ -1,0 +1,137 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "AriB Narrative Intelligence",
+    "slug": "narrative-intelligence",
+    "question": "What is crypto news covering, how is its tone moving, and how strong is the evidence?",
+    "methodology_version": "1.0.0-rc2"
+  },
+  "docs_page": "/research/api",
+  "public_api": {
+    "base_path": "/api/v1",
+    "auth": "API key in header (optional for the free tier)",
+    "key_header": "X-API-Key",
+    "key_issuance": "On request from the /pricing page",
+    "limits": {
+      "per_minute": 10,
+      "per_day": 500,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 30,
+      "key_default_expiry_days": 365
+    },
+    "cors_origins_env": "CORS_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/v1/sentiment",
+        "summary": "Current news tone, evidence counts and leading narratives.",
+        "datasets": [
+          "news_tone"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/history/{series}",
+        "summary": "Point-in-time history: series = index, news-tone, coin, price, calls. Query: start, end (ISO-8601), coin, format=json|csv.",
+        "datasets": [
+          "sentiment_index",
+          "news_tone",
+          "coin_index",
+          "prices",
+          "track_record_calls"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/coins",
+        "summary": "Current per-coin Sentiment Index.",
+        "datasets": [
+          "coin_index"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/alerts",
+        "summary": "Latest alerts. Query: limit (max 500).",
+        "datasets": [
+          "alerts"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/lab/leadlag",
+        "summary": "Lead/lag statistics of an index against price. Query: series, days.",
+        "datasets": [
+          "sentiment_index",
+          "prices"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/lab/backtest",
+        "summary": "Rule backtest on stored history (Track Record rules by default).",
+        "datasets": [
+          "sentiment_index",
+          "prices"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "sentiment_index",
+        "description": "Original AriB Sentiment Index (0-100, relative to its own baseline), one point per cycle.",
+        "unit": "index 0-100",
+        "frequency": "about every 10 minutes",
+        "redistribution": "Not allowed without written permission.",
+        "attribution": "AriB Research Narrative Intelligence",
+        "license_note": "Personal and internal use. Redistribution requires written permission. Attribution required."
+      },
+      {
+        "id": "news_tone",
+        "description": "Weighted tone of crypto news (-1 to +1) with two standard errors and item counts.",
+        "unit": "tone -1..+1",
+        "frequency": "about every 10 minutes",
+        "redistribution": "Not allowed without written permission.",
+        "attribution": "AriB Research Narrative Intelligence",
+        "license_note": "Personal and internal use. Redistribution requires written permission. Attribution required."
+      },
+      {
+        "id": "coin_index",
+        "description": "Sentiment Index per coin from headlines naming the coin.",
+        "unit": "index 0-100",
+        "frequency": "about every 10 minutes",
+        "redistribution": "Not allowed without written permission.",
+        "attribution": "AriB Research Narrative Intelligence",
+        "license_note": "Personal and internal use. Redistribution requires written permission. Attribution required."
+      },
+      {
+        "id": "prices",
+        "description": "Coin prices recorded at collection time (CoinGecko).",
+        "unit": "USD",
+        "frequency": "about every 10 minutes",
+        "redistribution": "Not allowed without written permission.",
+        "attribution": "AriB Research Narrative Intelligence",
+        "license_note": "Personal and internal use. Redistribution requires written permission. Attribution required."
+      },
+      {
+        "id": "track_record_calls",
+        "description": "Graded index calls and crossovers with the BTC move after each.",
+        "unit": "percent",
+        "frequency": "on each call",
+        "redistribution": "Not allowed without written permission.",
+        "attribution": "AriB Research Narrative Intelligence",
+        "license_note": "Personal and internal use. Redistribution requires written permission. Attribution required."
+      },
+      {
+        "id": "alerts",
+        "description": "Alerts produced by the system: index calls, crossovers, confirmed stories, coin regimes.",
+        "unit": "event",
+        "frequency": "on each event",
+        "redistribution": "Not allowed without written permission.",
+        "attribution": "AriB Research Narrative Intelligence",
+        "license_note": "Personal and internal use. Redistribution requires written permission. Attribution required."
+      }
+    ]
+  }
+}
