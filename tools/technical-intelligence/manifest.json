@@ -1,0 +1,88 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "Technical Intelligence",
+    "slug": "technical",
+    "question": "What is the chart of this coin doing right now: trend, momentum, volume and key levels, in one score?",
+    "methodology_version": "pre-v1"
+  },
+  "docs_page": "https://technical.aribresearch.com/api-docs",
+  "public_api": {
+    "base_path": "/public-api/v1",
+    "auth": "api_key",
+    "key_header": "X-API-Key",
+    "key_issuance": "Free self-service key on https://technical.aribresearch.com/account after Google sign-in. One key per account.",
+    "limits": {
+      "per_minute": 30,
+      "per_day": 1000,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 30,
+      "key_default_expiry_days": 365
+    },
+    "cors_origins_env": "PUBLIC_API_CORS_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/public-api/v1/coins",
+        "summary": "Coins with a technical reading",
+        "datasets": [
+          "coins"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/scores",
+        "summary": "Latest technical score for every tracked coin on one timeframe",
+        "datasets": [
+          "technical_scores"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/score/{symbol}",
+        "summary": "Latest technical score for one coin",
+        "datasets": [
+          "technical_scores"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/history/{symbol}",
+        "summary": "Stored score snapshots for one coin (short history)",
+        "datasets": [
+          "score_history"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "coins",
+        "description": "Tracked coins (symbol, base, name).",
+        "unit": "none",
+        "frequency": "static",
+        "redistribution": "allowed with attribution",
+        "attribution": "Technical Intelligence by AriB Research (https://technical.aribresearch.com). Market data: Binance public market data.",
+        "license_note": "Personal and internal use with attribution. No resale, no redistribution of bulk data, no use to build a competing data product."
+      },
+      {
+        "id": "technical_scores",
+        "description": "Technical score 0 to 100, state, trend, RSI, volume vs usual and setup tags, computed by AriB Research from Binance candles.",
+        "unit": "score 0-100",
+        "frequency": "recomputed at most every 2 minutes",
+        "redistribution": "small excerpts with attribution, no bulk redistribution",
+        "attribution": "Technical Intelligence by AriB Research (https://technical.aribresearch.com). Market data: Binance public market data.",
+        "license_note": "Personal and internal use with attribution. No resale, no redistribution of bulk data, no use to build a competing data product."
+      },
+      {
+        "id": "score_history",
+        "description": "Stored score snapshots for one coin and timeframe, short history only.",
+        "unit": "score 0-100",
+        "frequency": "at most one snapshot per 15 minutes per coin and timeframe",
+        "redistribution": "small excerpts with attribution, no bulk redistribution",
+        "attribution": "Technical Intelligence by AriB Research (https://technical.aribresearch.com). Market data: Binance public market data.",
+        "license_note": "Personal and internal use with attribution. No resale, no redistribution of bulk data, no use to build a competing data product."
+      }
+    ]
+  }
+}

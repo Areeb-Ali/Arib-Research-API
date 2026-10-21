@@ -1,0 +1,180 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Technical Intelligence Public API",
+    "version": "1",
+    "description": "Free technical readings for crypto coins from AriB Research. Research only, not financial advice. Limits per key: 30 per minute, 1000 per day, at most 500 rows per response, 30 days of history.",
+    "license": {
+      "name": "Personal and internal use with attribution. No resale, no redistribution of bulk data, no use to build a competing data product."
+    },
+    "x-limits": {
+      "per_minute": 30,
+      "per_day": 1000,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 30,
+      "key_default_expiry_days": 365
+    },
+    "x-attribution": "Technical Intelligence by AriB Research (https://technical.aribresearch.com). Market data: Binance public market data.",
+    "x-notice": "Research only, not financial advice"
+  },
+  "servers": [
+    {
+      "url": "https://technical.aribresearch.com/public-api/v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "paths": {
+    "/public-api/v1/coins": {
+      "get": {
+        "summary": "Coins with a technical reading",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with data, attribution, license and notice"
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached (see Retry-After and X-RateLimit-* headers)"
+          }
+        }
+      }
+    },
+    "/public-api/v1/scores": {
+      "get": {
+        "summary": "Latest technical score for every tracked coin on one timeframe",
+        "parameters": [
+          {
+            "name": "tf",
+            "in": "query",
+            "required": false,
+            "description": "4h | 1d | 1w (default 1d)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with data, attribution, license and notice"
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached (see Retry-After and X-RateLimit-* headers)"
+          }
+        }
+      }
+    },
+    "/public-api/v1/score/{symbol}": {
+      "get": {
+        "summary": "Latest technical score for one coin",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tf",
+            "in": "query",
+            "required": false,
+            "description": "4h | 1d | 1w (default 1d)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with data, attribution, license and notice"
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached (see Retry-After and X-RateLimit-* headers)"
+          }
+        }
+      }
+    },
+    "/public-api/v1/history/{symbol}": {
+      "get": {
+        "summary": "Stored score snapshots for one coin (short history)",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tf",
+            "in": "query",
+            "required": false,
+            "description": "1h | 4h | 1d | 1w | 1M (default 1d)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "description": "1 to the history limit",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with data, attribution, license and notice"
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached (see Retry-After and X-RateLimit-* headers)"
+          }
+        }
+      }
+    }
+  }
+}
