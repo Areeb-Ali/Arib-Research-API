@@ -1,0 +1,445 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AriB Research Event Calendar API",
+    "version": "1.0.0",
+    "description": "What scheduled events in the coming days and weeks could matter for crypto markets, and what just happened? Free, small and keyed. Research only, not financial advice. License: Personal and internal use. No redistribution or resale without written permission. Underlying US government schedules are in the public domain. Attribution: AriB Research Event Calendar. Event data from the Federal Reserve, BLS, BEA, Deribit, Binance, go-ethereum, the Federal Register and Snapshot. Limits: 30 requests per minute and 1000 per day per key, at most 500 rows per response, 30 days of history."
+  },
+  "servers": [
+    {
+      "url": "https://calendar.aribresearch.com/public-api/v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "schemas": {
+      "Envelope": {
+        "type": "object",
+        "required": [
+          "attribution",
+          "license",
+          "notice",
+          "as_of",
+          "data"
+        ],
+        "properties": {
+          "attribution": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "notice": {
+            "type": "string",
+            "enum": [
+              "Research only, not financial advice"
+            ]
+          },
+          "methodology_version": {
+            "type": "string"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data": {},
+          "count": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "truncated": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/events": {
+      "get": {
+        "summary": "Upcoming events in the next 7, 30 or 90 days, with filters",
+        "parameters": [
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "description": "Window in days",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                7,
+                30,
+                90
+              ]
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Event category",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "macro",
+                "derivatives",
+                "unlocks",
+                "etf",
+                "upgrades",
+                "governance",
+                "regulatory",
+                "other"
+              ]
+            }
+          },
+          {
+            "name": "importance",
+            "in": "query",
+            "required": false,
+            "description": "Importance level",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            }
+          },
+          {
+            "name": "asset",
+            "in": "query",
+            "required": false,
+            "description": "Ticker such as BTC; market-wide events are always included",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "origin",
+            "in": "query",
+            "required": false,
+            "description": "auto or manual",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "auto",
+                "manual"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Rows to return (1..500)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "403": {
+            "description": "Key expired or revoked"
+          },
+          "429": {
+            "description": "Limit reached; see Retry-After and X-RateLimit-* headers"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/events/recent": {
+      "get": {
+        "summary": "Events whose scheduled time passed in the last days (short history)",
+        "parameters": [
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "description": "Look-back in days (1..30)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 30
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Event category",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "macro",
+                "derivatives",
+                "unlocks",
+                "etf",
+                "upgrades",
+                "governance",
+                "regulatory",
+                "other"
+              ]
+            }
+          },
+          {
+            "name": "importance",
+            "in": "query",
+            "required": false,
+            "description": "Importance level",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            }
+          },
+          {
+            "name": "asset",
+            "in": "query",
+            "required": false,
+            "description": "Ticker such as BTC; market-wide events are always included",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "origin",
+            "in": "query",
+            "required": false,
+            "description": "auto or manual",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "auto",
+                "manual"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Rows to return (1..500)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "403": {
+            "description": "Key expired or revoked"
+          },
+          "429": {
+            "description": "Limit reached; see Retry-After and X-RateLimit-* headers"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/events/{id}": {
+      "get": {
+        "summary": "One event with its change log (reschedules, cancellations)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "403": {
+            "description": "Key expired or revoked"
+          },
+          "429": {
+            "description": "Limit reached; see Retry-After and X-RateLimit-* headers"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/load": {
+      "get": {
+        "summary": "Event load: count of high-importance events ahead, plus short daily history",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "403": {
+            "description": "Key expired or revoked"
+          },
+          "429": {
+            "description": "Limit reached; see Retry-After and X-RateLimit-* headers"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/status": {
+      "get": {
+        "summary": "Source status and coverage",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "403": {
+            "description": "Key expired or revoked"
+          },
+          "429": {
+            "description": "Limit reached; see Retry-After and X-RateLimit-* headers"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/methodology": {
+      "get": {
+        "summary": "Importance rules and categories (versioned)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "403": {
+            "description": "Key expired or revoked"
+          },
+          "429": {
+            "description": "Limit reached; see Retry-After and X-RateLimit-* headers"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    }
+  }
+}

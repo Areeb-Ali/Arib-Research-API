@@ -1,0 +1,122 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "Event Calendar",
+    "slug": "calendar",
+    "question": "What scheduled events in the coming days and weeks could matter for crypto markets, and what just happened?",
+    "methodology_version": "1.0"
+  },
+  "docs_page": "https://calendar.aribresearch.com/developers",
+  "public_api": {
+    "base_path": "/public-api/v1",
+    "auth": "api_key",
+    "key_header": "X-API-Key",
+    "key_issuance": "Request a free key with the feedback form on the site (type: Other). Keys are issued by hand, shown once, and expire after 365 days.",
+    "limits": {
+      "per_minute": 30,
+      "per_day": 1000,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 30,
+      "key_default_expiry_days": 365
+    },
+    "cors_origins_env": "PUBLIC_API_CORS_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/public-api/v1/events",
+        "summary": "Upcoming events in the next 7, 30 or 90 days, with filters",
+        "datasets": [
+          "events"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/events/recent",
+        "summary": "Events whose scheduled time passed in the last days (short history)",
+        "datasets": [
+          "events_recent"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/events/{id}",
+        "summary": "One event with its change log (reschedules, cancellations)",
+        "datasets": [
+          "events"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/load",
+        "summary": "Event load: count of high-importance events ahead, plus short daily history",
+        "datasets": [
+          "event_load"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/status",
+        "summary": "Source status and coverage",
+        "datasets": [
+          "source_status"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/public-api/v1/methodology",
+        "summary": "Importance rules and categories (versioned)",
+        "datasets": [
+          "methodology"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "events",
+        "redistribution": "Not allowed without written permission",
+        "attribution": "AriB Research Event Calendar. Event data from the Federal Reserve, BLS, BEA, Deribit, Binance, go-ethereum, the Federal Register and Snapshot.",
+        "license_note": "Personal and internal use. No redistribution or resale without written permission. Underlying US government schedules are in the public domain.",
+        "description": "Dated, sourced events: macro releases, crypto options and futures expiries, Ethereum network upgrades, SEC/CFTC rulemaking deadlines, governance votes, owner-curated events. Each has a source link, a precision flag, a status and an importance level (a hypothesis).",
+        "unit": "event",
+        "frequency": "checked every 30 minutes to 6 hours depending on the source"
+      },
+      {
+        "id": "events_recent",
+        "redistribution": "Not allowed without written permission",
+        "attribution": "AriB Research Event Calendar. Event data from the Federal Reserve, BLS, BEA, Deribit, Binance, go-ethereum, the Federal Register and Snapshot.",
+        "license_note": "Personal and internal use. No redistribution or resale without written permission. Underlying US government schedules are in the public domain.",
+        "description": "Events whose scheduled time has passed (short history).",
+        "unit": "event",
+        "frequency": "as events pass"
+      },
+      {
+        "id": "event_load",
+        "redistribution": "Not allowed without written permission",
+        "attribution": "AriB Research Event Calendar. Event data from the Federal Reserve, BLS, BEA, Deribit, Binance, go-ethereum, the Federal Register and Snapshot.",
+        "license_note": "Personal and internal use. No redistribution or resale without written permission. Underlying US government schedules are in the public domain.",
+        "description": "Number of upcoming high-importance events in the next 7 and 30 days by category. Counts events; says nothing about market direction.",
+        "unit": "count of events",
+        "frequency": "computed on request; history one point per day"
+      },
+      {
+        "id": "source_status",
+        "redistribution": "Not allowed without written permission",
+        "attribution": "AriB Research Event Calendar. Event data from the Federal Reserve, BLS, BEA, Deribit, Binance, go-ethereum, the Federal Register and Snapshot.",
+        "license_note": "Personal and internal use. No redistribution or resale without written permission. Underlying US government schedules are in the public domain.",
+        "description": "Freshness of every source and overall coverage.",
+        "unit": "status",
+        "frequency": "computed on request"
+      },
+      {
+        "id": "methodology",
+        "redistribution": "Not allowed without written permission",
+        "attribution": "AriB Research Event Calendar. Event data from the Federal Reserve, BLS, BEA, Deribit, Binance, go-ethereum, the Federal Register and Snapshot.",
+        "license_note": "Personal and internal use. No redistribution or resale without written permission. Underlying US government schedules are in the public domain.",
+        "description": "Versioned importance rules and categories.",
+        "unit": "rule",
+        "frequency": "changes only with a new methodology version"
+      }
+    ]
+  }
+}
