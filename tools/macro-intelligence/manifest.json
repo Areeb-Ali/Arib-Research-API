@@ -1,0 +1,199 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "Macro Intelligence",
+    "slug": "macro-intelligence",
+    "question": "What macro regime are markets in, and what is driving it?",
+    "methodology_version": "mi-1.1"
+  },
+  "docs_page": "https://macro.aribresearch.com/developers",
+  "public_api": {
+    "base_path": "/v1",
+    "auth": "api_key",
+    "key_header": "X-API-Key",
+    "key_issuance": "Sign in with Google at https://macro.aribresearch.com/account and create up to 3 keys. Keys are shown once and cannot be recovered later. They do not expire; revoke them on the same page.",
+    "limits": {
+      "per_minute": 5,
+      "per_day": 100,
+      "global_per_day": 3000,
+      "max_rows": 500,
+      "history_days": 90,
+      "key_default_expiry_days": null
+    },
+    "cors_origins_env": "CORS_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/v1/snapshot",
+        "summary": "Current macro regime, Macro Score (0-100), coverage, agreement, drivers, key changes",
+        "datasets": [
+          "macro_snapshot"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/history",
+        "summary": "Live Macro Score and regime since launch (last 90 days)",
+        "datasets": [
+          "macro_score_history"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/snapshots",
+        "summary": "Stored live snapshots with the displayed inputs (last 90 days)",
+        "datasets": [
+          "snapshots"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/track-record",
+        "summary": "Forward record since the methodology freeze with matured outcomes",
+        "datasets": [
+          "track_record"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/liquidity",
+        "summary": "Net liquidity, central bank balance sheet, financial conditions, stress, funding",
+        "datasets": [
+          "liquidity"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/positioning",
+        "summary": "Speculator futures positioning for rates, FX, equity index, gold, crude and Bitcoin",
+        "datasets": [
+          "positioning"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/central-banks",
+        "summary": "Policy rates and 6-month direction for 15 central banks",
+        "datasets": [
+          "central_banks"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/fx",
+        "summary": "Major FX pairs: 1D, 1W, 1M, 3M change, z-score, 1-year percentile",
+        "datasets": [
+          "fx"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/calendar",
+        "summary": "Recent and upcoming CPI, PPI, payrolls and GDP release dates",
+        "datasets": [
+          "calendar"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/v1/expectations",
+        "summary": "Published nowcasts and inflation expectations",
+        "datasets": [
+          "expectations"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "macro_snapshot",
+        "description": "Current macro regime, Macro Score (0-100), coverage, agreement, drivers, key changes",
+        "unit": "score 0-100",
+        "frequency": "hourly",
+        "redistribution": "Derived by AriB Research; do not redistribute",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "macro_score_history",
+        "description": "Live Macro Score and regime since launch (last 90 days)",
+        "unit": "score 0-100",
+        "frequency": "every 6 hours",
+        "redistribution": "Derived by AriB Research; do not redistribute",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "snapshots",
+        "description": "Stored live snapshots with the displayed inputs (last 90 days)",
+        "unit": "mixed",
+        "frequency": "every 6 hours",
+        "redistribution": "Derived by AriB Research; do not redistribute",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "track_record",
+        "description": "Forward record since the methodology freeze with matured outcomes",
+        "unit": "percent",
+        "frequency": "daily",
+        "redistribution": "Derived by AriB Research; do not redistribute",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "liquidity",
+        "description": "Net liquidity, central bank balance sheet, financial conditions, stress, funding",
+        "unit": "USD billions / index / percent",
+        "frequency": "weekly and daily",
+        "redistribution": "Official statistics; free to use with attribution",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "positioning",
+        "description": "Speculator futures positioning for rates, FX, equity index, gold, crude and Bitcoin",
+        "unit": "contracts / percent of open interest / 0-100 index",
+        "frequency": "weekly (Friday)",
+        "redistribution": "Public domain (CFTC)",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "central_banks",
+        "description": "Policy rates and 6-month direction for 15 central banks",
+        "unit": "percent",
+        "frequency": "daily",
+        "redistribution": "BIS data, attribution required",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "fx",
+        "description": "Major FX pairs: 1D, 1W, 1M, 3M change, z-score, 1-year percentile",
+        "unit": "percent / z",
+        "frequency": "hourly",
+        "redistribution": "Derived statistics only; no raw price feed",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "calendar",
+        "description": "Recent and upcoming CPI, PPI, payrolls and GDP release dates",
+        "unit": "date",
+        "frequency": "daily",
+        "redistribution": "Official statistics; free to use with attribution",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      },
+      {
+        "id": "expectations",
+        "description": "Published nowcasts and inflation expectations",
+        "unit": "percent",
+        "frequency": "daily",
+        "redistribution": "Official statistics; free to use with attribution",
+        "attribution": "AriB Research Macro Intelligence, built from official statistics (Federal Reserve, BLS, BEA, BIS, CFTC) and delayed market data",
+        "license_note": "Personal and internal use. No resale, redistribution or republication of the data."
+      }
+    ]
+  }
+}
