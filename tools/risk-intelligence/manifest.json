@@ -1,0 +1,114 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "Risk Intelligence",
+    "slug": "risk-intelligence",
+    "question": "Are there verified risk events or stress conditions in crypto right now, and how has that changed?",
+    "methodology_version": "v1.0"
+  },
+  "docs_page": "https://risk.aribresearch.com/api-docs",
+  "public_api": {
+    "base_path": "/public-api/v1",
+    "auth": "api_key",
+    "key_header": "X-API-Key",
+    "key_issuance": "Free keys on request via the feedback form at https://risk.aribresearch.com/feedback",
+    "limits": {
+      "per_minute": 30,
+      "per_day": 1000,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 30,
+      "key_default_expiry_days": 365
+    },
+    "cors_origins_env": "PUBLIC_API_CORS_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/state",
+        "summary": "Current label, score, coverage and module status",
+        "datasets": [
+          "state"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/modules",
+        "summary": "Per-module detail: severities, contributing items, peg deviations, exchange flows",
+        "datasets": [
+          "modules"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/events",
+        "summary": "Recorded events of the last 30 days (module, since, min_points, limit, cursor)",
+        "datasets": [
+          "events"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/history",
+        "summary": "Forward-record snapshots of the last 30 days (days, limit, cursor)",
+        "datasets": [
+          "history"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/sources",
+        "summary": "Data sources and their current health",
+        "datasets": [
+          "sources"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "state",
+        "description": "Current state label, 0-100 risk score (null below 50% coverage), coverage, per-module status and severity.",
+        "unit": "score 0-100; coverage 0-1",
+        "frequency": "every 15 minutes",
+        "redistribution": "not permitted in bulk; quote individual items with credit",
+        "attribution": "AriB Research · Risk Intelligence. Underlying data: DefiLlama, SEC, CFTC, OFAC Sanctions List Service, UK FCA (see each item's source link).",
+        "license_note": "Personal and internal use. Do not resell or redistribute bulk data. Credit AriB Research (Risk Intelligence) and the original sources."
+      },
+      {
+        "id": "modules",
+        "description": "Module details: decayed severity points of contributing hacks and regulatory actions, stablecoin price deviation from $1, price-neutral exchange net flows.",
+        "unit": "points 0-100; USD; fraction",
+        "frequency": "15 minutes to 12 hours by module",
+        "redistribution": "not permitted in bulk; quote individual items with credit",
+        "attribution": "AriB Research · Risk Intelligence. Underlying data: DefiLlama, SEC, CFTC, OFAC Sanctions List Service, UK FCA (see each item's source link).",
+        "license_note": "Personal and internal use. Do not resell or redistribute bulk data. Credit AriB Research (Risk Intelligence) and the original sources."
+      },
+      {
+        "id": "events",
+        "description": "Hacks, peg deviations, official regulatory actions and exchange outflow events with date, severity points, source link and matched rules.",
+        "unit": "points; USD",
+        "frequency": "as recorded",
+        "redistribution": "not permitted in bulk; quote individual items with credit",
+        "attribution": "AriB Research · Risk Intelligence. Underlying data: DefiLlama, SEC, CFTC, OFAC Sanctions List Service, UK FCA (see each item's source link).",
+        "license_note": "Personal and internal use. Do not resell or redistribute bulk data. Credit AriB Research (Risk Intelligence) and the original sources."
+      },
+      {
+        "id": "history",
+        "description": "Forward record of the score, coverage and per-module severity, one row per collection cycle.",
+        "unit": "score 0-100; coverage 0-1",
+        "frequency": "every 15 minutes",
+        "redistribution": "not permitted in bulk; quote individual items with credit",
+        "attribution": "AriB Research · Risk Intelligence. Underlying data: DefiLlama, SEC, CFTC, OFAC Sanctions List Service, UK FCA (see each item's source link).",
+        "license_note": "Personal and internal use. Do not resell or redistribute bulk data. Credit AriB Research (Risk Intelligence) and the original sources."
+      },
+      {
+        "id": "sources",
+        "description": "Source registry with last successful fetch time.",
+        "unit": "n/a",
+        "frequency": "every 15 minutes",
+        "redistribution": "not permitted in bulk; quote individual items with credit",
+        "attribution": "AriB Research · Risk Intelligence. Underlying data: DefiLlama, SEC, CFTC, OFAC Sanctions List Service, UK FCA (see each item's source link).",
+        "license_note": "Personal and internal use. Do not resell or redistribute bulk data. Credit AriB Research (Risk Intelligence) and the original sources."
+      }
+    ]
+  }
+}
