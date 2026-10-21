@@ -1,0 +1,105 @@
+{
+  "manifest_version": 1,
+  "tool": {
+    "name": "Opportunity Intelligence",
+    "slug": "opportunity-intelligence",
+    "question": "Which crypto futures contracts are seeing unusual volatility expansion right now, and can they be traded cleanly?",
+    "methodology_version": "1.1.0"
+  },
+  "docs_page": "https://radar.aribresearch.com/api-docs",
+  "public_api": {
+    "base_path": "/public-api/v1",
+    "auth": "api_key",
+    "key_header": "X-API-Key",
+    "key_issuance": "Free personal keys on request through the feedback page, valid 90 days.",
+    "limits": {
+      "per_minute": 30,
+      "per_day": 1000,
+      "global_per_day": 20000,
+      "max_rows": 500,
+      "history_days": 3,
+      "key_default_expiry_days": 90
+    },
+    "cors_origins_env": "OI_ALLOWED_ORIGINS",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/status",
+        "summary": "Health of each exchange connector and data freshness",
+        "datasets": [
+          "status"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/exchanges",
+        "summary": "Supported exchanges and their current availability",
+        "datasets": [
+          "exchanges"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/opportunities",
+        "summary": "Recent and live volatility expansion opportunities of one exchange",
+        "datasets": [
+          "opportunities"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/opportunities/{uid}",
+        "summary": "One opportunity: detection evidence, lifecycle, follow-up observations",
+        "datasets": [
+          "opportunities"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/performance",
+        "summary": "Historical forward performance summary of one exchange",
+        "datasets": [
+          "performance"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "status",
+        "description": "Connector state and data freshness per exchange",
+        "unit": "state, ms timestamps",
+        "frequency": "every 5 minutes",
+        "redistribution": "not allowed",
+        "attribution": "Data: AriB Research Opportunity Intelligence (radar.aribresearch.com)",
+        "license_note": "Personal and internal use. No resale, redistribution, scraping, crawling or bulk download."
+      },
+      {
+        "id": "exchanges",
+        "description": "Exchange catalog with availability",
+        "unit": "n/a",
+        "frequency": "every 5 minutes",
+        "redistribution": "not allowed",
+        "attribution": "Data: AriB Research Opportunity Intelligence (radar.aribresearch.com)",
+        "license_note": "Personal and internal use. No resale, redistribution, scraping, crawling or bulk download."
+      },
+      {
+        "id": "opportunities",
+        "description": "Detected volatility expansion opportunities with redacted evidence, lifecycle and forward observations",
+        "unit": "scores 0 to 100, returns as fractions",
+        "frequency": "every 5 minutes",
+        "redistribution": "not allowed",
+        "attribution": "Data: AriB Research Opportunity Intelligence (radar.aribresearch.com)",
+        "license_note": "Personal and internal use. No resale, redistribution, scraping, crawling or bulk download."
+      },
+      {
+        "id": "performance",
+        "description": "Forward performance and base rate comparison, insufficient evidence shown as such",
+        "unit": "rates as fractions with intervals",
+        "frequency": "as observations complete",
+        "redistribution": "not allowed",
+        "attribution": "Data: AriB Research Opportunity Intelligence (radar.aribresearch.com)",
+        "license_note": "Personal and internal use. No resale, redistribution, scraping, crawling or bulk download."
+      }
+    ]
+  }
+}
