@@ -11,6 +11,7 @@ Each tool has its own API, key and limits. All APIs are in **free beta**.
 |------|---------------------|------|
 | Derivatives Intelligence | What are crypto derivatives traders positioned for right now? | [docs](tools/derivatives-intelligence/README.md) |
 | Liquidity Intelligence | Is liquidity entering or leaving crypto, and is institutional capital entering or leaving through spot ETFs and corporate treasuries? | [docs](tools/liquidity-intelligence/README.md) |
+| Narrative Intelligence | What is crypto news covering, how is its tone moving, and how strong is the evidence? | [docs](tools/narrative-intelligence/README.md) |
 
 More tools will be added here one by one.
 

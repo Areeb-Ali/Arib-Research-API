@@ -1,0 +1,174 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AriB Narrative Intelligence Public API",
+    "version": "1",
+    "description": "Free tier: 10/min, 500/day, 500 rows per response, 30 days of history. Research only, not financial advice.",
+    "license": {
+      "name": "Personal and internal use. Redistribution requires written permission. Attribution required."
+    }
+  },
+  "servers": [
+    {
+      "url": "https://narratives.aribresearch.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/sentiment": {
+      "get": {
+        "summary": "Current news tone, evidence counts and leading narratives.",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON with attribution, license and notice"
+          },
+          "401": {
+            "description": "Invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached; see Retry-After"
+          }
+        }
+      }
+    },
+    "/api/v1/history/{series}": {
+      "get": {
+        "summary": "Point-in-time history: series = index, news-tone, coin, price, calls. Query: start, end (ISO-8601), coin, format=json|csv.",
+        "parameters": [
+          {
+            "name": "series",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON with attribution, license and notice"
+          },
+          "401": {
+            "description": "Invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached; see Retry-After"
+          }
+        }
+      }
+    },
+    "/api/v1/coins": {
+      "get": {
+        "summary": "Current per-coin Sentiment Index.",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON with attribution, license and notice"
+          },
+          "401": {
+            "description": "Invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached; see Retry-After"
+          }
+        }
+      }
+    },
+    "/api/v1/alerts": {
+      "get": {
+        "summary": "Latest alerts. Query: limit (max 500).",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON with attribution, license and notice"
+          },
+          "401": {
+            "description": "Invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached; see Retry-After"
+          }
+        }
+      }
+    },
+    "/api/v1/lab/leadlag": {
+      "get": {
+        "summary": "Lead/lag statistics of an index against price. Query: series, days.",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON with attribution, license and notice"
+          },
+          "401": {
+            "description": "Invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached; see Retry-After"
+          }
+        }
+      }
+    },
+    "/api/v1/lab/backtest": {
+      "get": {
+        "summary": "Rule backtest on stored history (Track Record rules by default).",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON with attribution, license and notice"
+          },
+          "401": {
+            "description": "Invalid, expired or revoked key"
+          },
+          "429": {
+            "description": "Rate limit reached; see Retry-After"
+          }
+        }
+      }
+    }
+  }
+}
