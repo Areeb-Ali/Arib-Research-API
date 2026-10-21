@@ -1,0 +1,199 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Opportunity Intelligence Public API",
+    "version": "0.1.0",
+    "description": "Research only, not financial advice. Personal and internal use. No resale, redistribution, scraping, crawling or bulk download. Data: AriB Research Opportunity Intelligence (radar.aribresearch.com)."
+  },
+  "servers": [
+    {
+      "url": "https://radar.aribresearch.com/public-api/v1"
+    }
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "summary": "Health of each exchange connector and data freshness",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with attribution, license, notice and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Limit reached, see Retry-After and X-RateLimit headers"
+          }
+        }
+      }
+    },
+    "/exchanges": {
+      "get": {
+        "summary": "Supported exchanges and their current availability",
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with attribution, license, notice and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Limit reached, see Retry-After and X-RateLimit headers"
+          }
+        }
+      }
+    },
+    "/opportunities": {
+      "get": {
+        "summary": "Recent and live volatility expansion opportunities of one exchange",
+        "parameters": [
+          {
+            "name": "exchange",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "mexc"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all",
+                "live",
+                "detected",
+                "active",
+                "expired",
+                "invalidated"
+              ]
+            }
+          },
+          {
+            "name": "hours",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 72
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with attribution, license, notice and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Limit reached, see Retry-After and X-RateLimit headers"
+          }
+        }
+      }
+    },
+    "/opportunities/{uid}": {
+      "get": {
+        "summary": "One opportunity: detection evidence, lifecycle, follow-up observations",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with attribution, license, notice and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Limit reached, see Retry-After and X-RateLimit headers"
+          }
+        }
+      }
+    },
+    "/performance": {
+      "get": {
+        "summary": "Historical forward performance summary of one exchange",
+        "parameters": [
+          {
+            "name": "exchange",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "mexc"
+            }
+          },
+          {
+            "name": "horizon",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                15,
+                30,
+                60,
+                120,
+                240
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Envelope with attribution, license, notice and data"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "429": {
+            "description": "Limit reached, see Retry-After and X-RateLimit headers"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  }
+}
